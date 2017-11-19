@@ -33,7 +33,7 @@ RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable 
 
 RUN apt-get install -y google-chrome-stable
 
-RUN sudo apt-get -y -qq install phantomjs
+RUN apt-get -y -qq install phantomjs
 
 # node and npm
 RUN wget -O /node-v6.11.3-linux-x64.tar.xz "https://nodejs.org/dist/v6.11.3/node-v6.11.3-linux-x64.tar.xz"
