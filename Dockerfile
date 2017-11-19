@@ -1,5 +1,4 @@
-FROM ubuntu:trusty
-
+FROM node:6.11.1
 
 RUN apt-get -y -qq update
 
@@ -27,16 +26,12 @@ RUN python3.4 get-pip.py
 # aws cli
 RUN pip install awscli --upgrade
 
+# OPTIONAL: Install dumb-init (Very handy for easier signal handling of SIGINT/SIGTERM/SIGKILL etc.)
+RUN wget https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64.deb
+RUN dpkg -i dumb-init_*.deb
+ENTRYPOINT ["dumb-init"]
+
 # Install Google Chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-RUN apt-get -y -qq update
-RUN apt-get install -y google-chrome-stable
-
-# node and npm
-RUN wget -O /node-v6.11.3-linux-x64.tar.xz "https://nodejs.org/dist/v6.11.3/node-v6.11.3-linux-x64.tar.xz"
-RUN tar xf /node-v6.11.3-linux-x64.tar.xz
-RUN rm -rf /node-v6.11.3-linux-x64.tar.xz
-RUN mv /node-v6.11.3-linux-x64 /node
-RUN ln -s /node/bin/node /usr/bin/node
-RUN ln -s /node/bin/npm /usr/bin/npm
+RUN apt-get update && apt-get install -y google-chrome-stable
