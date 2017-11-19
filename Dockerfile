@@ -23,6 +23,9 @@ RUN apt-get -y -qq install curl
 # pip
 RUN curl -O https://bootstrap.pypa.io/get-pip.py
 RUN python3.4 get-pip.py
+
+RUN sudo apt-get -y -qq install phantomjs
+
 # aws cli
 RUN pip install awscli --upgrade
 
