@@ -12,7 +12,11 @@ RUN apt-get -y -qq install zip
 # git
 RUN apt-get -y -qq install git
 # python3
-RUN apt-get -y -qq install python3.4-dev
+RUN \
+  apt-get update && \
+  apt-get install -y python python-dev python-pip python-virtualenv && \
+  rm -rf /var/lib/apt/lists/*
+
 # bash
 RUN apt-get -y -qq install bash
 # wget
